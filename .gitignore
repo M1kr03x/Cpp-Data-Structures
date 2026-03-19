@@ -1,0 +1,42 @@
+# --- CMake Specific ---
+CMakeCache.txt
+CMakeFiles/
+CMakeScripts/
+Testing/
+Makefile
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake
+_deps/
+
+# --- Build Directories ---
+[Bb]uild/
+/out/
+/bin/
+
+# --- IDEs and Editors ---
+# Visual Studio
+.vs/
+*.sln
+*.vcxproj
+*.filters
+*.user
+
+# VS Code
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+
+# CLion / JetBrains
+.idea/
+cmake-build-*/
+
+# --- Python
+__pycache__/
+*.py[cod]
+
+# --- OS generated files ---
+.DS_Store
+Thumbs.db
