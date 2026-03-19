@@ -74,3 +74,43 @@ std::optional<int> BinaryTree::findMax() {
 	return tempPtr->data;
 }
 // TODO: Реализация удаления узла
+void BinaryTree::remove(int data) {
+	Node* parent = nullptr;
+	Node* current = root.get();
+	while (current and current->data!=data) {
+		parent = current;
+		if (current->data > data) {
+			current = current->left.get();
+		}
+		if (current->data < data) {
+			current = current->right.get();
+		}
+		if (!current) { std::cout<< "Num doesnt exist"; return; }
+
+	}
+	if (current->left == nullptr and current->right == nullptr) {
+		if (!parent) root.reset();
+		else if (parent->left.get() == current) { parent->left.reset(); return; }
+		else { parent->right.reset(); return; }
+		return;
+	}
+	if (current->left != nullptr and current->right==nullptr) {
+		if (!parent) root = std::move(current->left);
+		else if (parent->left.get() == current) parent->left = std::move(current->left);
+		else {
+			parent->right = std::move(current->left);
+		}
+		return;
+	}
+	if (current->left == nullptr and current->right != nullptr) {
+		if (!parent) root = std::move(current->right);
+		else if (parent->left.get() == current) {
+			parent->left = std::move(current->right);
+		}
+		else {
+			parent->right = std::move(current->right);
+		}
+		return;
+	}
+	//TODO Добавить удаление с двумя потомками / Реализовать преемника
+}

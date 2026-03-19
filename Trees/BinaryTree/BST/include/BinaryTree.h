@@ -5,13 +5,13 @@
 class BinaryTree{
 private:
     std::unique_ptr<Node> root;
-    void recursivePrint(Node* root);
+    void recursivePrint(Node*);
 public:
 void print();
-void insert(int data);
-void findData(int data);
+void insert(int);
+void findData(int);
 std::optional<int> findMin();
 std::optional<int> findMax();
-
+void remove(int);
 };
 #endif
