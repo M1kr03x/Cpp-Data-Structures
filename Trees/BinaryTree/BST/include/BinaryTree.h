@@ -13,5 +13,6 @@ void findData(int);
 std::optional<int> findMin();
 std::optional<int> findMax();
 void remove(int);
+int findMinNode(std::unique_ptr<Node>&);
 };
 #endif

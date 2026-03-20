@@ -12,4 +12,6 @@ tree.findData(1);
 std::optional<int> min = tree.findMin();
 std::cout << std::endl << min.value() <<std::endl;
 tree.print();
+tree.remove(16);
+tree.print();
 }
