@@ -133,3 +133,15 @@ int BinaryTree::findMinNode(std::unique_ptr<Node>& ptr) {
 	}
 	return data;
 }
+int BinaryTree::calculateNodes(Node* ptr) const {
+	if (ptr == nullptr) return 0;
+	int leftCounter = calculateNodes(ptr->left.get()); // 1 //1 //0
+	int rightCounter = calculateNodes(ptr->right.get());
+	return leftCounter + rightCounter + 1; //0
+}
+int BinaryTree::calculateObjectsSum(Node *ptr) const {
+	if (ptr == nullptr) return 0;
+	int leftSum = calculateObjectsSum(ptr->left.get());
+	int rightSum = calculateObjectsSum(ptr->right.get());
+	return ptr->data + leftSum + rightSum;
+}
