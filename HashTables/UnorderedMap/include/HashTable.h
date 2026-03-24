@@ -3,10 +3,11 @@
 
 #include "Node.h"
 #include <vector>
+#include <memory>
 class HashTable{
     private:
     static const int TABLE_SIZE = 10;
-    Node* table[TABLE_SIZE];
+    std::unique_ptr<Node> table[TABLE_SIZE];
     int hashFunction(std::string key);
     public:
     HashTable();

@@ -14,60 +14,50 @@ HashTable::HashTable(){
 }
 void HashTable::insert(std::string key,std::string value){
     int hashed = hashFunction(key);
-    Node* newNode = new Node(key,value);
-    newNode->next = table[hashed];
-    table[hashed] = newNode;
+    std::unique_ptr<Node> node = std::make_unique<Node>(key,value);
+    node->next = std::move(table[hashed]);
+    table[hashed] = std::move(node);
 }
 std::string HashTable::get(std::string key){
     int hash = hashFunction(key);
-    Node* node = table[hash];
+    Node* node = table[hash].get();
     while (node!=nullptr){
         if(node->key == key) return node->value;
-        node = node->next;
+        node = node->next.get();
     }
     return "\nNot found\n";
 }
 void HashTable::remove(std::string key){
     int hash = hashFunction(key);
-    Node* currentNode = table[hash];
+    Node* currentNode = table[hash].get();
     Node* parentNode = nullptr;
     while(currentNode != nullptr){
         if(currentNode->key == key){
             if(parentNode == nullptr){
-                table[hash] = currentNode->next;
+                table[hash] = std::move(currentNode->next);
              
             }
             else{
-                parentNode->next = currentNode->next;
+                parentNode->next = std::move(currentNode->next);
                
             }
-            delete currentNode;
+
             return;
         }
         parentNode = currentNode;
-        currentNode = currentNode->next;
+        currentNode = currentNode->next.get();
     }
 
 }
-HashTable::~HashTable(){
-   for(unsigned i{0};i<TABLE_SIZE;i++){
-    Node *currentNode = table[i];
-    while(currentNode != nullptr){
-        Node* deleteNode = currentNode;
-        currentNode = currentNode->next;
-        delete deleteNode;
-    }
-    table[i] = nullptr;
-   }
-}
+
 void HashTable::print(){
     for(unsigned i{0}; i< TABLE_SIZE;i++){
         std::cout << "Index [" << i <<"]: ";
-        Node* currentNode = table[i];
+        Node* currentNode = table[i].get();
         if(currentNode == nullptr){ std::cout<< "empty"<<std::endl; continue;};
         while(currentNode!=nullptr){
             std::cout<< "["<<currentNode->key <<": " << currentNode->value << "] -> ";
-            currentNode = currentNode->next;
+            currentNode = currentNode->next.get();
             
         }
         std::cout << " nullptr" << std::endl;
